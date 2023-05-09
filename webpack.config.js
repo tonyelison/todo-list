@@ -5,14 +5,23 @@ const ROOT = '.';
 const SRC = 'src';
 const DIST = 'dist';
 const ROOT_SRC = `${ROOT}/${SRC}`;
+const ROOT_DIST = `${ROOT}/${DIST}`;
 
 module.exports = {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    static: ROOT_DIST,
+  },  
+  optimization: {
+    runtimeChunk: 'single',
+  },
   entry: [
     `${ROOT_SRC}/index.js`,
     `${ROOT_SRC}/style.css`
   ],
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, DIST),
     clean: true,
   },  
