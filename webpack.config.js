@@ -12,19 +12,19 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     static: ROOT_DIST,
-  },  
+  },
   optimization: {
     runtimeChunk: 'single',
   },
   entry: [
     `${ROOT_SRC}/index.js`,
-    `${ROOT_SRC}/style.css`
+    `${ROOT_SRC}/style.css`,
   ],
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, DIST),
     clean: true,
-  },  
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: `${ROOT_SRC}/index.html`,
