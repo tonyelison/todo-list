@@ -1,6 +1,6 @@
 import sequenceFactory from './sequence';
 
-const idSequence = sequenceFactory(1000, 1);
+const idSequence = sequenceFactory();
 
 const projectFactory = (title, description, initialTodos) => {
   const id = idSequence.getNext();

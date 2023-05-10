@@ -12,7 +12,7 @@ const STATUS = {
   complete: 1,
 };
 
-const idSequence = sequenceFactory(1000, 1);
+const idSequence = sequenceFactory();
 
 const todoFactory = (title, description, dueDate, priority, status) => {
   const id = idSequence.getNext();
