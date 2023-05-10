@@ -12,3 +12,7 @@ console.log(project.todoList().length);
 
 project.removeTodo(todo.id);
 console.log(project.todoList().length);
+
+console.log(todo.id);
+todo.id = 2;
+console.log(todo.id);

@@ -11,7 +11,9 @@ const STATUS = {
 };
 
 const todoFactory = (id, title, description, dueDate, priority, status) => ({
-  id,
+  get id() {
+    return id;
+  },
   title,
   description,
   dueDate,

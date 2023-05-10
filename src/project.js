@@ -8,7 +8,9 @@ const projectFactory = (id, title, description, initialTodos) => {
   };
 
   return {
-    id,
+    get id() {
+      return id;
+    },
     title,
     description,
     todoList,
