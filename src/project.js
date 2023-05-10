@@ -1,4 +1,9 @@
-const projectFactory = (id, title, description, initialTodos) => {
+import sequenceFactory from './sequence';
+
+const idSequence = sequenceFactory(1000, 1);
+
+const projectFactory = (title, description, initialTodos) => {
+  const id = idSequence.getNext();
   let todos = initialTodos || [];
 
   const todoList = () => [...todos];
