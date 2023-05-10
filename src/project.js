@@ -3,7 +3,6 @@ import sequenceFactory from './sequence';
 const idSequence = sequenceFactory();
 
 const projectFactory = (title, description, initialTodos) => {
-  const id = idSequence.getNext();
   let todos = initialTodos || [];
 
   const todoList = () => [...todos];
@@ -14,7 +13,7 @@ const projectFactory = (title, description, initialTodos) => {
 
   return {
     get id() {
-      return id;
+      return idSequence.getNext();
     },
     title,
     description,

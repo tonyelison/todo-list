@@ -14,19 +14,15 @@ const STATUS = {
 
 const idSequence = sequenceFactory();
 
-const todoFactory = (title, description, dueDate, priority, status) => {
-  const id = idSequence.getNext();
-
-  return {
-    get id() {
-      return id;
-    },
-    title,
-    description,
-    dueDate,
-    priority: priority || PRIORITY.none,
-    status: status || STATUS.incomplete,
-  };
-};
+const todoFactory = (title, description, dueDate, priority, status) => ({
+  get id() {
+    return idSequence.getNext();
+  },
+  title,
+  description,
+  dueDate,
+  priority: priority || PRIORITY.none,
+  status: status || STATUS.incomplete,
+});
 
 export default todoFactory;
