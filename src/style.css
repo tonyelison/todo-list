@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  --primary-color: #77A4FF;
+  --secondary-color: #F5F6F8;
+
+  box-sizing: border-box;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  grid-template-rows: 82px 1fr;
+}
+
+header {
+  grid-column: span 2;
+  background-color: var(--primary-color);
+}
+
+nav {
+  background-color: var(--secondary-color);
+}
