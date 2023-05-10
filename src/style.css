@@ -7,6 +7,7 @@ body {
   --primary-color: #77A4FF;
   --secondary-color: #F5F6F8;
 
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   height: 100vh;
 
@@ -17,7 +18,28 @@ body {
 
 header {
   grid-column: span 2;
+  align-self: center;
+  height: 100%;
+
+  padding-inline: 20px;
   background-color: var(--primary-color);
+  color: white;
+}
+
+header > * {
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo span {
+  font-family: 'RocknRoll One', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.05em;
 }
 
 nav {
