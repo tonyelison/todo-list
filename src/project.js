@@ -10,6 +10,9 @@ const projectFactory = (title, description, initialTodos) => {
   const removeTodo = (todoId) => {
     todos = todos.filter((todo) => todo.id !== todoId);
   };
+  const clearTodos = () => {
+    todos = [];
+  };
 
   return {
     get id() {
@@ -20,6 +23,7 @@ const projectFactory = (title, description, initialTodos) => {
     todoList,
     addTodo,
     removeTodo,
+    clearTodos,
   };
 };
 

@@ -1,8 +1,10 @@
+import accountFactory from './account';
 import projectFactory from './project';
 import todoFactory from './todo';
 
-const defaultProject = projectFactory('title', 'description');
-console.log(defaultProject);
+const account = accountFactory();
+const defaultProj = projectFactory('Default Project', 'description goes here');
+const newTodo = todoFactory('New Task', 'description', new Date());
 
-const defaultProject2 = projectFactory('title2', 'description2');
-console.log(defaultProject2);
+defaultProj.addTodo(newTodo);
+account.addProject(defaultProj);
