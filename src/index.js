@@ -13,7 +13,6 @@ const customProjects = document.querySelector('nav ul.user-defined-projects');
 const rectangleSvg = require('./assets/rectangle.svg');
 
 const main = document.querySelector('main');
-const currentContent = document.querySelector('.current-content');
 
 const addProjectBtn = document.querySelector('.nav-footer .add-btn');
 addProjectBtn.addEventListener('click', () => {
@@ -45,6 +44,7 @@ addProjectBtn.addEventListener('click', () => {
   customProjects.appendChild(projectNavItem);
 
   // add main page content
+  const currentContent = main.querySelector('main > *');
   const newDiv = document.createElement('div');
   const projectTitleInput = document.createElement('input');
 
