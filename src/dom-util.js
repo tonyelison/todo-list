@@ -17,7 +17,7 @@ const updateProjectTitle = (titleInput, project) => {
   project.title = titleInput.value;
 };
 
-const renderProjectView = (project, isNew) => {
+const renderProjectView = (project) => {
   const newDiv = document.createElement('div');
   const projectTitleInput = document.createElement('input');
 
@@ -33,7 +33,7 @@ const renderProjectView = (project, isNew) => {
   newDiv.appendChild(projectTitleInput);
   main.replaceChild(newDiv, main.querySelector('main > *'));
 
-  if (isNew) {
+  if (!project.title) {
     projectTitleInput.focus();
   }
 };
@@ -70,7 +70,7 @@ const addProjectNavItem = (project) => {
 
 const addProject = (project) => {
   addProjectNavItem(project);
-  renderProjectView(project, true);
+  renderProjectView(project);
 };
 
 const setAddProjectEvent = (event) => {
@@ -78,9 +78,7 @@ const setAddProjectEvent = (event) => {
   addProjectBtn.addEventListener('click', event);
 };
 
-const domUtil = {
+export default {
   addProject,
   setAddProjectEvent,
 };
-
-export default domUtil;
