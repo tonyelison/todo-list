@@ -17,7 +17,29 @@
     </div>
   </header>
   <nav>
-    <div class="default-projects"></div>
+    <ul class="default-projects">
+      <li>
+        <a class="project">
+          <img class="icon all" src="<%= require('./assets/rectangle.svg') %>" alt="project icon">
+          <span class="title">All Tasks</span>
+          <span class="task-total">20</span>
+        </a>
+      </li>
+      <li>
+        <a class="project">
+          <img class="icon today" src="<%= require('./assets/rectangle.svg') %>" alt="project icon">
+          <span class="title">Today</span>
+          <span class="task-total">5</span>
+        </a>
+      </li>
+      <li>
+        <a class="project">
+          <img class="icon upcoming" src="<%= require('./assets/rectangle.svg') %>" alt="project icon">
+          <span class="title">Upcoming</span>
+          <span class="task-total">15</span>
+        </a>
+      </li>
+    </ul>
     <div class="user-defined-projects"></div>
     <div class="nav-footer">
       <button class="add-btn">

@@ -8,9 +8,11 @@ body {
   --primary-color: #77A4FF;
   --secondary-color: #F5F6F8;
   --dark-grey: #2F3437;
+  --light-grey: #8D8E8F;
   --border-grey: #CCCED1;
 
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  color: var(--dark-grey);
   box-sizing: border-box;
   height: 100vh;
 
@@ -19,8 +21,9 @@ body {
   grid-template-rows: 82px 1fr;
 }
 
-button {
+a, button {
   cursor: pointer;
+  font-family: inherit;
 }
 
 header {
@@ -51,10 +54,53 @@ header > * {
 
 nav {
   background-color: var(--secondary-color);
-  padding: 50px 30px 0 40px;
+  padding: 15px 30px 0 30px;
+  font-weight: 500;
 
   display: grid;
   grid-template-rows: 300px 1fr 50px;
+}
+
+nav ul {
+  list-style: none;
+  font-size: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+nav li a {
+  padding: 14px 16px;
+
+  display: flex;
+  gap: 15px;
+}
+
+nav li a:hover {
+  background-color: #e4e6ed;
+}
+
+nav li a .icon {
+  height: 20px;
+  
+}
+
+.icon.all {
+  filter: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(3532%) hue-rotate(195deg) brightness(103%) contrast(101%);;
+}
+
+.icon.today {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(48%) saturate(761%) hue-rotate(317deg) brightness(100%) contrast(101%);
+}
+
+.icon.upcoming {
+  filter: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(2187%) hue-rotate(69deg) brightness(103%) contrast(101%);
+}
+
+nav li a .task-total {
+  margin-left: auto;
+  color: var(--light-grey);
 }
 
 .nav-footer {
@@ -72,6 +118,7 @@ button.add-btn {
   color: var(--dark-grey);
   border: none;
   font-size: 18px;
+  font-weight: 500;
 
   display: flex;
   align-items: center;
