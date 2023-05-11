@@ -2,20 +2,9 @@ import sequenceFactory from './sequence';
 
 const idSequence = sequenceFactory();
 
-const projectFactory = (projTitle, projDesc, initialTodos) => {
+const projectFactory = (title, description, initialTodos) => {
+  const id = idSequence.getNext();
   let todos = initialTodos || [];
-  let title = projTitle || 'New Project';
-  let description = projDesc;
-
-  const getTitle = () => title;
-  const setTitle = (newTitle) => {
-    title = newTitle;
-  };
-
-  const getDescription = () => description;
-  const setDescription = (newDesc) => {
-    description = newDesc;
-  };
 
   const todoList = () => [...todos];
   const addTodo = (todo) => todos.push(todo);
@@ -28,12 +17,10 @@ const projectFactory = (projTitle, projDesc, initialTodos) => {
 
   return {
     get id() {
-      return idSequence.getNext();
+      return id;
     },
-    getTitle,
-    setTitle,
-    getDescription,
-    setDescription,
+    title: title || '',
+    description: description || '',
     todoList,
     addTodo,
     removeTodo,

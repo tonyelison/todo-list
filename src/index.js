@@ -3,15 +3,14 @@ import accountFactory from './account';
 import projectFactory from './project';
 import todoFactory from './todo';
 
-const initApp = (() => {
+(() => {
   const account = accountFactory();
 
   const addProject = () => {
-    const newProject = projectFactory('New Project');
+    const newProject = projectFactory();
 
     account.addProject(newProject);
     domUtil.addProject(newProject);
-    console.log(account.projectList());
   };
 
   const addTodo = (projectId) => {
