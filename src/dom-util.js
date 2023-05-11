@@ -5,6 +5,12 @@ const userDefinedProjects = document.querySelector('nav ul.user-defined-projects
 
 const formatNavTitle = (inputValue) => inputValue || 'New Project';
 
+function blurKeyEventHandler(event) {
+  if (event.code === 'Enter') {
+    this.blur();
+  }
+}
+
 const updateProjectTitle = (titleInput, project) => {
   const navItemTitle = document.querySelector(`nav li#project-${project.id} span.title`);
   navItemTitle.textContent = formatNavTitle(titleInput.value);
@@ -22,11 +28,7 @@ const renderProjectView = (project, isNew) => {
   projectTitleInput.value = project.title;
 
   projectTitleInput.addEventListener('focusout', () => updateProjectTitle(projectTitleInput, project));
-  projectTitleInput.addEventListener('keypress', (event) => {
-    if (event.code === 'Enter') {
-      projectTitleInput.blur();
-    }
-  });
+  projectTitleInput.addEventListener('keypress', blurKeyEventHandler);
 
   newDiv.appendChild(projectTitleInput);
   main.replaceChild(newDiv, main.querySelector('main > *'));
