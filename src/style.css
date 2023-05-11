@@ -58,7 +58,7 @@ nav {
   font-weight: 500;
 
   display: grid;
-  grid-template-rows: 300px 1fr 50px;
+  grid-template-rows: min-content 1fr 50px;
 }
 
 nav ul {
@@ -68,6 +68,14 @@ nav ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+nav ul.default-projects {
+  padding-bottom: 15px;
+}
+
+nav ul.user-defined-projects {
+  padding-top: 15px;
 }
 
 nav li a {
@@ -135,4 +143,15 @@ button.add-btn:hover {
 
 button.add-btn:hover img.add {
   filter: none;
+}
+
+main {
+  padding: 55px;
+}
+
+input.title {
+  border: none;
+  outline: none;
+  font-size: 32px;
+  font-weight: bold;
 }
