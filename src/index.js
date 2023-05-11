@@ -3,11 +3,25 @@ import accountFactory from './account';
 import projectFactory from './project';
 import todoFactory from './todo';
 
-domUtil.init();
+const initApp = (() => {
+  const account = accountFactory();
 
-const account = accountFactory();
-const defaultProj = projectFactory('Default Project', 'description goes here');
-const newTodo = todoFactory('New Task', 'description', new Date());
+  const addProject = () => {
+    const newProject = projectFactory('New Project');
 
-defaultProj.addTodo(newTodo);
-account.addProject(defaultProj);
+    account.addProject(newProject);
+    domUtil.addProject(newProject);
+    console.log(account.projectList());
+  };
+
+  const addTodo = (projectId) => {
+    const newTodo = todoFactory('New Task');
+    const project = account.projectList().filter((proj) => proj.id === projectId);
+
+    project.addTodo(newTodo);
+    domUtil.addTodo(newTodo.id);
+  };
+
+  domUtil.setAddProjectEvent(addProject);
+  // domUtil.setAddTodoEvent(addProject);
+})();
