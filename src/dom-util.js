@@ -6,6 +6,10 @@ const ellipsisSvg = require('./assets/ellipsis.svg');
 const main = document.querySelector('main');
 const userDefinedProjects = document.querySelector('nav ul.user-defined-projects');
 
+const renderDefaultView = () => {
+  main.replaceChild(document.createElement('div'), main.firstChild);
+};
+
 const formatNavTitle = (inputValue) => inputValue || 'New Project';
 
 function blurKeyEventHandler(event) {
@@ -15,10 +19,10 @@ function blurKeyEventHandler(event) {
 }
 
 const removeProject = (project) => {
-  console.log('remove project');
-  // removeProjectNavItem(project);
-  // renderProjectView(project);
-  // remove project from account ... ?
+  const navItem = userDefinedProjects.querySelector(`nav li#project-${project.id}`);
+  navItem.remove();
+
+  renderDefaultView();
 };
 
 const updateProjectTitle = (titleInput, project) => {
