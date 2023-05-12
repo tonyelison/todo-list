@@ -1,7 +1,18 @@
 const rectangleSvg = require('./assets/rectangle.svg');
+const ellipsisSvg = require('./assets/ellipsis.svg');
 
 const main = document.querySelector('main');
 const userDefinedProjects = document.querySelector('nav ul.user-defined-projects');
+
+(() => {
+  const body = document.querySelector('body');
+  body.addEventListener('click', (e) => {
+    const dropdown = document.querySelector('.dropdown');
+    if (dropdown && dropdown !== e.target && !dropdown.contains(e.target)) {
+      dropdown.remove();
+    }
+  });
+})();
 
 const formatNavTitle = (inputValue) => inputValue || 'New Project';
 
@@ -11,30 +22,78 @@ function blurKeyEventHandler(event) {
   }
 }
 
+const removeProject = (project) => {
+  console.log('remove project');
+  // removeProjectNavItem(project);
+  // renderProjectView(project);
+  // remove project from account ... ?
+};
+
 const updateProjectTitle = (titleInput, project) => {
   const navItemTitle = document.querySelector(`nav li#project-${project.id} span.title`);
   navItemTitle.textContent = formatNavTitle(titleInput.value);
   project.title = titleInput.value;
 };
 
+const dropdownAction = (action, dropdown) => {
+  action();
+  dropdown.remove();
+};
+
+const openEllipsisDropdown = (event, options, adjacentElement) => {
+  if (document.querySelector('.dropdown')) {
+    return; // defer to body event to close the open dropdown
+  }
+
+  const dropdownMenu = document.createElement('ul');
+  dropdownMenu.classList.add('dropdown');
+
+  options.forEach((option) => {
+    const listItem = document.createElement('li');
+
+    listItem.classList.add('dropdown-option');
+    listItem.textContent = option.text;
+    listItem.addEventListener('click', () => dropdownAction(option.action, dropdownMenu));
+
+    dropdownMenu.append(listItem);
+  });
+
+  adjacentElement.insertAdjacentElement('afterend', dropdownMenu);
+  event.stopPropagation();
+};
+
 const renderProjectView = (project) => {
-  const newDiv = document.createElement('div');
-  const projectTitleInput = document.createElement('input');
+  const projectDetails = document.createElement('div');
+  const headerContainer = document.createElement('div');
+  const titleInput = document.createElement('input');
+  const ellipsisMenu = document.createElement('img');
 
-  newDiv.classList.add('project-page');
+  projectDetails.classList.add('project-details');
+  headerContainer.classList.add('header-container');
 
-  projectTitleInput.classList.add('title');
-  projectTitleInput.placeholder = 'New Project';
-  projectTitleInput.value = project.title;
+  titleInput.classList.add('title');
+  titleInput.placeholder = 'New Project';
+  titleInput.value = project.title;
 
-  projectTitleInput.addEventListener('focusout', () => updateProjectTitle(projectTitleInput, project));
-  projectTitleInput.addEventListener('keypress', blurKeyEventHandler);
+  titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
+  titleInput.addEventListener('keypress', blurKeyEventHandler);
 
-  newDiv.appendChild(projectTitleInput);
-  main.replaceChild(newDiv, main.querySelector('main > *'));
+  ellipsisMenu.classList.add('ellipsis-menu');
+  ellipsisMenu.src = ellipsisSvg;
+
+  const ellipsisOptions = [
+    { text: 'Rename', icon: '', action: () => titleInput.focus() },
+    { text: 'Delete', icon: '', action: () => removeProject(project) },
+  ];
+
+  ellipsisMenu.addEventListener('click', (event) => openEllipsisDropdown(event, ellipsisOptions, ellipsisMenu));
+
+  headerContainer.append(titleInput, ellipsisMenu);
+  projectDetails.appendChild(headerContainer);
+  main.replaceChild(projectDetails, main.querySelector('main > *'));
 
   if (!project.title) {
-    projectTitleInput.focus();
+    titleInput.focus();
   }
 };
 
