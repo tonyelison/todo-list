@@ -11,10 +11,7 @@ const sequenceFactory = (initVal, incrVal) => {
     return tempVal;
   };
 
-  return {
-    getNext,
-    increment,
-  };
+  return { getNext };
 };
 
 export default sequenceFactory;

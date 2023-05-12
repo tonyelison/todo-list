@@ -3,6 +3,8 @@ import dropdown from './dropdown';
 const rectangleSvg = require('./assets/rectangle.svg');
 const ellipsisSvg = require('./assets/ellipsis.svg');
 
+let app; // populated during init
+
 const main = document.querySelector('main');
 const userDefinedProjects = document.querySelector('nav ul.user-defined-projects');
 
@@ -54,23 +56,22 @@ const renderProjectView = (project) => {
   ellipsisMenu.src = ellipsisSvg;
 
   const ellipsisOptions = [
-    {
-      text: 'Rename', icon: 'edit', action: () => titleInput.focus(),
-    },
-    {
-      text: 'Delete', icon: 'delete', action: () => removeProject(project),
-    },
+    { text: 'Rename', icon: 'edit', action: () => titleInput.focus() },
+    { text: 'Delete', icon: 'delete', action: () => removeProject(project) },
   ];
 
-  ellipsisMenu.addEventListener('click', (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu));
+  const openDropdown = (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu);
+  ellipsisMenu.addEventListener('click', openDropdown);
 
   headerContainer.append(titleInput, ellipsisMenu);
   projectDetails.appendChild(headerContainer);
-  main.replaceChild(projectDetails, main.querySelector('main > *'));
+  main.replaceChild(projectDetails, main.firstChild);
 
   if (!project.title) {
     titleInput.focus();
   }
+
+  setAddTodoBtnAction(project);
 };
 
 const addProjectNavItem = (project) => {
@@ -108,12 +109,33 @@ const addProject = (project) => {
   renderProjectView(project);
 };
 
-const setAddProjectEvent = (event) => {
+// const addTodo = (todo) => {
+//   addProjectNavItem(todo);
+//   renderProjectView(todo);
+// };
+
+function setAddProjectBtnAction() {
   const addProjectBtn = document.querySelector('.nav-footer .add-btn');
-  addProjectBtn.addEventListener('click', event);
+  addProjectBtn.addEventListener('click', () => {
+    const project = app.newProject();
+    addProject(project);
+  });
+}
+
+function setAddTodoBtnAction(project) {
+  const addTodoBtn = document.querySelector('main button.add-todo');
+  addTodoBtn?.addEventListener('click', () => {
+    const todo = app.newTodo(project);
+    console.log(todo);
+    // addTodo(todo);
+  });
+}
+
+const init = (appState) => {
+  app = appState;
+
+  setAddProjectBtnAction();
+  setAddTodoBtnAction();
 };
 
-export default {
-  addProject,
-  setAddProjectEvent,
-};
+export default { init };

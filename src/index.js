@@ -4,25 +4,20 @@ import projectFactory from './project';
 import todoFactory from './todo';
 
 (() => {
-  const account = accountFactory();
+  const account = accountFactory(); // TODO: persist to local storage
 
-  const addProject = () => {
-    const newProject = projectFactory(account);
-
-    account.addProject(newProject);
-    domUtil.addProject(newProject);
+  const app = {
+    newProject() {
+      const project = projectFactory(account);
+      account.addProject(project);
+      return project;
+    },
+    newTodo(project) {
+      const todo = todoFactory(project);
+      project?.addTodo(todo);
+      return todo;
+    },
   };
 
-  const addTodo = (projectId) => {
-    const newTodo = todoFactory('New Task');
-    const project = account.projectList().filter((proj) => proj.id === projectId);
-
-    project.addTodo(newTodo);
-    domUtil.addTodo(newTodo.id);
-  };
-
-  domUtil.setAddProjectEvent(addProject);
-  console.log(account);
-
-  // domUtil.setAddTodoEvent(addProject);
+  domUtil.init(app);
 })();
