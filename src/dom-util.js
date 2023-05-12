@@ -22,6 +22,9 @@ const removeProject = (project) => {
   const navItem = userDefinedProjects.querySelector(`nav li#project-${project.id}`);
   navItem.remove();
 
+  const { account } = project;
+  account.removeProject(project.id);
+
   renderDefaultView();
 };
 

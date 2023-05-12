@@ -7,7 +7,7 @@ import todoFactory from './todo';
   const account = accountFactory();
 
   const addProject = () => {
-    const newProject = projectFactory();
+    const newProject = projectFactory(account);
 
     account.addProject(newProject);
     domUtil.addProject(newProject);
@@ -22,5 +22,7 @@ import todoFactory from './todo';
   };
 
   domUtil.setAddProjectEvent(addProject);
+  console.log(account);
+
   // domUtil.setAddTodoEvent(addProject);
 })();
