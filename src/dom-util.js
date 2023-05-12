@@ -47,8 +47,12 @@ const renderProjectView = (project) => {
   ellipsisMenu.src = ellipsisSvg;
 
   const ellipsisOptions = [
-    { text: 'Rename', icon: '', action: () => titleInput.focus() },
-    { text: 'Delete', icon: '', action: () => removeProject(project) },
+    {
+      text: 'Rename', icon: 'edit', action: () => titleInput.focus(),
+    },
+    {
+      text: 'Delete', icon: 'delete', action: () => removeProject(project),
+    },
   ];
 
   ellipsisMenu.addEventListener('click', (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu));
