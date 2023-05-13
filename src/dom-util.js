@@ -36,21 +36,8 @@ const updateProjectTitle = (titleInput, project) => {
   project.title = titleInput.value;
 };
 
-const renderProjectView = (project) => {
-  const projectDetails = document.createElement('div');
-  const headerContainer = document.createElement('div');
-  const titleInput = document.createElement('input');
+const renderEllipsisMenu = (titleInput, project) => {
   const ellipsisMenu = document.createElement('img');
-
-  projectDetails.classList.add('project-details');
-  headerContainer.classList.add('header-container');
-
-  titleInput.classList.add('title');
-  titleInput.placeholder = 'New Project';
-  titleInput.value = project.title;
-
-  titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
-  titleInput.addEventListener('keypress', blurKeyEventHandler);
 
   ellipsisMenu.classList.add('ellipsis-menu');
   ellipsisMenu.src = ellipsisSvg;
@@ -63,8 +50,42 @@ const renderProjectView = (project) => {
   const openDropdown = (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu);
   ellipsisMenu.addEventListener('click', openDropdown);
 
+  return ellipsisMenu;
+};
+
+const renderTodos = (todos) => {
+  const container = document.createElement('div');
+  container.classList.add('todo-list');
+
+  todos.forEach((todo) => {
+    const todoDiv = document.createElement('div');
+    todoDiv.textContent = todo.id;
+    container.appendChild(todoDiv);
+  });
+
+  return container;
+};
+
+const renderProjectView = (project) => {
+  const projectDetails = document.createElement('div');
+  const headerContainer = document.createElement('div');
+  const titleInput = document.createElement('input');
+
+  projectDetails.classList.add('project-details');
+  headerContainer.classList.add('header-container');
+
+  titleInput.classList.add('title');
+  titleInput.placeholder = 'New Project';
+  titleInput.value = project.title;
+
+  titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
+  titleInput.addEventListener('keypress', blurKeyEventHandler);
+
+  const ellipsisMenu = renderEllipsisMenu(titleInput, project);
+  const todoListContainer = renderTodos(project.todoList());
+
   headerContainer.append(titleInput, ellipsisMenu);
-  projectDetails.appendChild(headerContainer);
+  projectDetails.append(headerContainer, todoListContainer);
   main.replaceChild(projectDetails, main.firstChild);
 
   if (!project.title) {
@@ -116,6 +137,7 @@ const addProject = (project) => {
 
 function setAddProjectBtnAction() {
   const addProjectBtn = document.querySelector('.nav-footer .add-btn');
+
   addProjectBtn.addEventListener('click', () => {
     const project = app.newProject();
     addProject(project);
@@ -124,10 +146,14 @@ function setAddProjectBtnAction() {
 
 function setAddTodoBtnAction(project) {
   const addTodoBtn = document.querySelector('main button.add-todo');
-  addTodoBtn?.addEventListener('click', () => {
+  if (!addTodoBtn) return;
+
+  const newAddBtn = addTodoBtn.cloneNode(true);
+  addTodoBtn.parentNode.replaceChild(newAddBtn, addTodoBtn);
+
+  newAddBtn.addEventListener('click', () => {
     const todo = app.newTodo(project);
     console.log(todo);
-    // addTodo(todo);
   });
 }
 

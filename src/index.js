@@ -7,12 +7,12 @@ import todoFactory from './todo';
   const account = accountFactory(); // TODO: persist to local storage
 
   const app = {
-    newProject() {
+    newProject: () => {
       const project = projectFactory(account);
       account.addProject(project);
       return project;
     },
-    newTodo(project) {
+    newTodo: (project) => {
       const todo = todoFactory(project);
       project?.addTodo(todo);
       return todo;
