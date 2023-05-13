@@ -27,11 +27,20 @@ const renderTodoList = (todos) => {
 
 const renderAllTodosView = () => {
   const projectDetails = document.createElement('div');
+  const headerContainer = document.createElement('div');
+  const h1 = document.createElement('h1');
 
   projectDetails.classList.add('project-details');
-  main.replaceChild(projectDetails, main.querySelector('.project-details'));
+  headerContainer.classList.add('header-container');
 
+  h1.classList.add('title');
+  h1.textContent = 'All Tasks';
+
+  headerContainer.appendChild(h1);
+  projectDetails.appendChild(headerContainer);
   projectDetails.appendChild(renderTodoList(app.getAllTodos()));
+
+  main.replaceChild(projectDetails, main.querySelector('.project-details'));
 };
 
 const formatNavTitle = (inputValue) => inputValue || 'New Project';

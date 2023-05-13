@@ -151,10 +151,22 @@ main {
 
 .project-details .header-container {
   position: relative;
-  width: min-content;
+  width: max-content;
 
   display: flex;
   align-items: center;
+}
+
+h1,
+input.title {
+  min-height: 40px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+input.title {
+  border: none;
+  outline: none;
 }
 
 .ellipsis-menu {
@@ -209,11 +221,4 @@ main {
 
 .dropdown-option.delete {
   color: #FF4747;
-}
-
-input.title {
-  border: none;
-  outline: none;
-  font-size: 32px;
-  font-weight: bold;
 }
