@@ -53,15 +53,19 @@ const renderEllipsisMenu = (titleInput, project) => {
   return ellipsisMenu;
 };
 
-const renderTodos = (todos) => {
+const renderTodo = (todo, parentNode) => {
+  const todoDiv = document.createElement('div');
+  todoDiv.classList.add('todo-item');
+
+  todoDiv.textContent = todo.id;
+  parentNode.appendChild(todoDiv);
+};
+
+const renderProjectTodos = (todos) => {
   const container = document.createElement('div');
   container.classList.add('todo-list');
 
-  todos.forEach((todo) => {
-    const todoDiv = document.createElement('div');
-    todoDiv.textContent = todo.id;
-    container.appendChild(todoDiv);
-  });
+  todos.forEach((todo) => renderTodo(todo, container));
 
   return container;
 };
@@ -82,11 +86,11 @@ const renderProjectView = (project) => {
   titleInput.addEventListener('keypress', blurKeyEventHandler);
 
   const ellipsisMenu = renderEllipsisMenu(titleInput, project);
-  const todoListContainer = renderTodos(project.todoList());
+  const todoListContainer = renderProjectTodos(project.todoList());
 
   headerContainer.append(titleInput, ellipsisMenu);
   projectDetails.append(headerContainer, todoListContainer);
-  main.replaceChild(projectDetails, main.firstChild);
+  main.replaceChild(projectDetails, main.querySelector('.project-details'));
 
   if (!project.title) {
     titleInput.focus();
@@ -130,10 +134,10 @@ const addProject = (project) => {
   renderProjectView(project);
 };
 
-// const addTodo = (todo) => {
-//   addProjectNavItem(todo);
-//   renderProjectView(todo);
-// };
+const addTodo = (todo) => {
+  const parentNode = document.querySelector('.todo-list') || document.querySelector('.project-details');
+  renderTodo(todo, parentNode);
+};
 
 function setAddProjectBtnAction() {
   const addProjectBtn = document.querySelector('.nav-footer .add-btn');
@@ -153,7 +157,7 @@ function setAddTodoBtnAction(project) {
 
   newAddBtn.addEventListener('click', () => {
     const todo = app.newTodo(project);
-    console.log(todo);
+    addTodo(todo);
   });
 }
 
