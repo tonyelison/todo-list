@@ -85,7 +85,8 @@ nav li a {
   gap: 15px;
 }
 
-nav li a:hover {
+nav li a:hover,
+nav li.active a {
   background-color: #e4e6ed;
 }
 

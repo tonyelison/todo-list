@@ -8,6 +8,14 @@ let app; // populated during init
 const main = document.querySelector('main');
 const userDefinedProjects = document.querySelector('nav ul.user-defined-projects');
 
+const activateNavItem = (elementId) => {
+  const activeLi = document.querySelector('nav li.active');
+  const li = document.getElementById(elementId);
+
+  activeLi?.classList.remove('active');
+  li.classList.add('active');
+};
+
 const renderTodo = (todo, parentNode) => {
   const todoDiv = document.createElement('div');
   todoDiv.classList.add('todo-item');
@@ -41,6 +49,8 @@ const renderAllTodosView = () => {
   projectDetails.appendChild(renderTodoList(app.getAllTodos()));
 
   main.replaceChild(projectDetails, main.querySelector('.project-details'));
+
+  activateNavItem('all-tasks');
 };
 
 const formatNavTitle = (inputValue) => inputValue || 'New Project';
@@ -111,6 +121,7 @@ const renderProjectView = (project) => {
   }
 
   setAddTodoBtnAction(project);
+  activateNavItem(`project-${project.id}`);
 };
 
 const addProjectNavItem = (project) => {
