@@ -6,17 +6,38 @@ import todoFactory from './todo';
 (() => {
   const account = accountFactory(); // TODO: persist to local storage
 
+  const newProject = (...args) => {
+    const project = projectFactory(account, ...args);
+    account.addProject(project);
+    return project;
+  };
+
+  const defaultProject = newProject('Default Project');
+
+  const newTodo = (project = defaultProject) => {
+    const todo = todoFactory(project);
+    project?.addTodo(todo);
+    return todo;
+  };
+
+  const getAllTodos = () => {
+    let allTodos = [];
+    account.projectList().forEach((project) => {
+      allTodos = allTodos.concat(project.todoList());
+    });
+    return allTodos;
+  };
+
+  // TODO: need to update these...
+  const getTodayTodos = () => getAllTodos.filter((todo) => todo.date === new Date().getDay);
+  const getUpcomingTodos = () => getAllTodos.filter((todo) => todo.date === new Date().getDay);
+
   const app = {
-    newProject: () => {
-      const project = projectFactory(account);
-      account.addProject(project);
-      return project;
-    },
-    newTodo: (project) => {
-      const todo = todoFactory(project);
-      project?.addTodo(todo);
-      return todo;
-    },
+    newProject,
+    newTodo,
+    getAllTodos,
+    getTodayTodos,
+    getUpcomingTodos,
   };
 
   domUtil.init(app);
