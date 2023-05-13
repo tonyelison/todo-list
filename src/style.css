@@ -10,6 +10,7 @@ body {
   --dark-grey: #2F3437;
   --light-grey: #8D8E8F;
   --border-grey: #CCCED1;
+  --modal-box-shadow: 2px 2px 10px #00000025;
 
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: var(--dark-grey);
@@ -159,7 +160,7 @@ main {
 }
 
 h1,
-input.title {
+.header-container input.title {
   min-height: 40px;
   font-size: 32px;
   font-weight: bold;
@@ -185,7 +186,7 @@ input.title {
   top: 100%;
   left: calc(100% - 40px);
   list-style: none;
-  box-shadow: 2px 2px 10px #00000025;
+  box-shadow: var(--modal-box-shadow);
   font-weight: 500;
 
   display: flex;
@@ -222,4 +223,25 @@ input.title {
 
 .dropdown-option.delete {
   color: #FF4747;
+}
+
+.edit-view {
+  box-shadow: var(--modal-box-shadow);
+}
+
+.todo-item {
+  padding: 14px 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.check-box {
+  content: url('./assets/checkbox-empty.svg');
+  height: 18px;
+}
+
+.todo-item .title {
+  font-size: 18px;
 }

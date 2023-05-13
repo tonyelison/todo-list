@@ -24,8 +24,8 @@ const todoFactory = (project, title, description, dueDate, priority, status) => 
     get project() {
       return project;
     },
-    title,
-    description,
+    title: title || '',
+    description: description || '',
     dueDate,
     priority: priority || PRIORITY.none,
     status: status || STATUS.incomplete,

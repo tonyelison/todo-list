@@ -16,11 +16,45 @@ const activateNavItem = (elementId) => {
   li.classList.add('active');
 };
 
+const renderEditTodoView = (todo, parentNode) => {
+  const container = document.createElement('div');
+  const header = document.createElement('div');
+  const checkBox = document.createElement('div');
+  const titleInput = document.createElement('input');
+
+  container.classList.add('edit-view');
+  header.classList.add('todo-item');
+  checkBox.classList.add('check-box');
+
+  titleInput.classList.add('title');
+  titleInput.placeholder = 'New Todo';
+  titleInput.value = todo.title;
+
+  titleInput.addEventListener('keypress', blurKeyEventHandler);
+  titleInput.addEventListener('focusout', () => {
+    todo.title = titleInput.value;
+  });
+
+  header.append(checkBox, titleInput);
+  container.appendChild(header);
+  parentNode.appendChild(container);
+
+  if (!todo.title) {
+    titleInput.focus();
+  }
+};
+
 const renderTodo = (todo, parentNode) => {
   const todoDiv = document.createElement('div');
-  todoDiv.classList.add('todo-item');
+  const checkBox = document.createElement('div');
+  const title = document.createElement('div');
 
-  todoDiv.textContent = todo.id;
+  todoDiv.classList.add('todo-item');
+  checkBox.classList.add('check-box');
+  title.classList.add('title');
+  title.textContent = todo.title || 'New Todo';
+
+  todoDiv.append(checkBox, title);
   parentNode.appendChild(todoDiv);
 };
 
@@ -106,8 +140,8 @@ const renderProjectView = (project) => {
   titleInput.placeholder = 'New Project';
   titleInput.value = project.title;
 
-  titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
   titleInput.addEventListener('keypress', blurKeyEventHandler);
+  titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
 
   const ellipsisMenu = renderEllipsisMenu(titleInput, project);
   const todoListContainer = renderTodoList(project.todoList());
@@ -161,7 +195,7 @@ const addProject = (project) => {
 
 const addTodo = (todo) => {
   const parentNode = document.querySelector('.todo-list') || document.querySelector('.project-details');
-  renderTodo(todo, parentNode);
+  renderEditTodoView(todo, parentNode);
 };
 
 function setAddProjectBtnAction() {
