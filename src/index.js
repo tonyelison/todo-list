@@ -3,7 +3,7 @@ import accountFactory from './account';
 import projectFactory from './project';
 import todoFactory from './todo';
 
-(() => {
+const app = (() => {
   const account = accountFactory(); // TODO: persist to local storage
 
   const newProject = (...args) => {
@@ -32,13 +32,13 @@ import todoFactory from './todo';
   const getTodayTodos = () => getAllTodos.filter((todo) => todo.date === new Date().getDay);
   const getUpcomingTodos = () => getAllTodos.filter((todo) => todo.date === new Date().getDay);
 
-  const app = {
+  return {
     newProject,
     newTodo,
     getAllTodos,
     getTodayTodos,
     getUpcomingTodos,
   };
-
-  domUtil.init(app);
 })();
+
+domUtil.init(app);
