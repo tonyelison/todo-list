@@ -4,7 +4,7 @@ import projectFactory from './project';
 import todoFactory from './todo';
 
 const app = (() => {
-  const account = accountFactory(); // TODO: persist to local storage
+  const account = accountFactory();
 
   const newProject = (...args) => {
     const project = projectFactory(account, ...args);
@@ -12,6 +12,8 @@ const app = (() => {
     return project;
   };
 
+  // assign new todos to a default project if one is not provided
+  // that way the account is still aware of them
   const defaultProject = newProject('Default Project');
 
   const newTodo = (project = defaultProject) => {
