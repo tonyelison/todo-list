@@ -10,6 +10,7 @@ body {
   --dark-grey: #2F3437;
   --light-grey: #8D8E8F;
   --border-grey: #CCCED1;
+  --select-grey: #ECEEF3;
   --modal-box-shadow: 2px 2px 10px #00000025;
 
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
@@ -20,6 +21,10 @@ body {
   display: grid;
   grid-template-columns: 350px 1fr;
   grid-template-rows: 82px 1fr;
+}
+
+input {
+  background-color: unset;
 }
 
 a, button {
@@ -178,7 +183,7 @@ input.title {
 }
 
 .ellipsis-menu:hover {
-  background-color: #ECEEF3;
+  background-color: var(--select-grey);
 }
 
 .dropdown {
@@ -205,7 +210,7 @@ input.title {
 }
 
 .dropdown-option:hover {
-  background-color: #ECEEF3;
+  background-color: var(--select-grey);
 }
 
 .dropdown-option img {
@@ -225,11 +230,21 @@ input.title {
   color: #FF4747;
 }
 
+.todo-container:not(.edit-view):hover {
+  background-color: var(--select-grey);
+  cursor: pointer;
+}
+
+.todo-container:not(.edit-view) .todo-item input:hover {
+  cursor: pointer;
+}
+
 .edit-view {
   box-shadow: var(--modal-box-shadow);
 }
 
 .todo-item {
+  margin-block: 15px;
   padding: 14px 16px;
 
   display: flex;
