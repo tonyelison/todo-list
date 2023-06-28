@@ -12,6 +12,7 @@ body {
   --border-grey: #CCCED1;
   --select-grey: #ECEEF3;
   --modal-box-shadow: 2px 2px 10px #00000025;
+  --border-separator: 1px solid var(--border-grey);
 
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: var(--dark-grey);
@@ -120,7 +121,7 @@ nav li a .task-total {
 
 .nav-footer {
   height: 100%;
-  border-top: 1px solid var(--border-grey);
+  border-top: var(--border-separator);
 
   display: flex;
   flex-direction: column;
@@ -259,4 +260,30 @@ input.title {
 
 .todo-item .title {
   font-size: 18px;
+}
+
+.list-footer {
+  margin-top: 50px;
+  border-top: var(--border-separator);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+}
+
+button.add-todo {
+  color: var(--primary-color);
+}
+
+button.add-todo:hover {
+  color: var(--primary-dark);
+}
+
+button.add-todo img.add {
+  filter: invert(60%) sepia(18%) saturate(1268%) hue-rotate(184deg) brightness(102%) contrast(102%);
+}
+
+button.add-todo:hover img.add {
+  filter: invert(41%) sepia(85%) saturate(2348%) hue-rotate(206deg) brightness(100%) contrast(103%);
 }
