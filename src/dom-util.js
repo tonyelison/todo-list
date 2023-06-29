@@ -24,7 +24,7 @@ const renderEditTodoView = (todo, parentNode) => {
 
   container.tabIndex = -1; // make div focusable, but not accessible by tabbing
   container.classList.add('todo-container');
-  container.addEventListener('click', () => container.classList.add('edit-view'));
+  container.addEventListener('focus', () => container.classList.add('edit-view'));
   container.addEventListener('focusout', (e) => {
     if (e.relatedTarget !== container && !e.target.contains(e.relatedTarget)) {
       container.classList.remove('edit-view');
