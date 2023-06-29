@@ -16,7 +16,7 @@ const activateNavItem = (elementId) => {
   li.classList.add('active');
 };
 
-const renderEditTodoView = (todo, parentNode) => {
+const renderTodo = (todo, parentNode) => {
   const container = document.createElement('div');
   const header = document.createElement('div');
   const checkBox = document.createElement('div');
@@ -51,20 +51,6 @@ const renderEditTodoView = (todo, parentNode) => {
   if (!todo.title) {
     titleInput.focus();
   }
-};
-
-const renderTodo = (todo, parentNode) => {
-  const todoDiv = document.createElement('div');
-  const checkBox = document.createElement('div');
-  const title = document.createElement('div');
-
-  todoDiv.classList.add('todo-item');
-  checkBox.classList.add('check-box');
-  title.classList.add('title');
-  title.textContent = todo.title || 'New Todo';
-
-  todoDiv.append(checkBox, title);
-  parentNode.appendChild(todoDiv);
 };
 
 const renderTodoList = (todos) => {
@@ -204,7 +190,7 @@ const addProject = (project) => {
 
 const addTodo = (todo) => {
   const parentNode = document.querySelector('.todo-list') || document.querySelector('.project-details');
-  renderEditTodoView(todo, parentNode);
+  renderTodo(todo, parentNode);
 };
 
 function setAddProjectBtnAction() {
