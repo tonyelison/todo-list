@@ -82,7 +82,7 @@ nav ul.default-projects {
 }
 
 nav ul.user-defined-projects {
-  padding-top: 15px;
+  padding-block: 15px;
 }
 
 nav li a {
@@ -120,7 +120,6 @@ nav li a .task-total {
 }
 
 .nav-footer {
-  height: 100%;
   border-top: var(--border-separator);
 
   display: flex;
@@ -192,8 +191,9 @@ input.title {
   top: 100%;
   left: calc(100% - 40px);
   list-style: none;
-  box-shadow: var(--modal-box-shadow);
   font-weight: 500;
+  box-shadow: var(--modal-box-shadow);
+  background-color: white;
 
   display: flex;
   flex-direction: column;
