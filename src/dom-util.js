@@ -22,8 +22,14 @@ const renderEditTodoView = (todo, parentNode) => {
   const checkBox = document.createElement('div');
   const titleInput = document.createElement('input');
 
+  container.tabIndex = -1; // make div focusable, but not accessible by tabbing
   container.classList.add('todo-container');
   container.addEventListener('click', () => container.classList.add('edit-view'));
+  container.addEventListener('focusout', (e) => {
+    if (e.relatedTarget !== container && !e.target.contains(e.relatedTarget)) {
+      container.classList.remove('edit-view');
+    }
+  });
 
   header.classList.add('todo-item');
   checkBox.classList.add('check-box');
@@ -36,7 +42,6 @@ const renderEditTodoView = (todo, parentNode) => {
   titleInput.addEventListener('keypress', blurKeyEventHandler);
   titleInput.addEventListener('focusout', () => {
     todo.title = titleInput.value;
-    container.classList.remove('edit-view');
   });
 
   header.append(checkBox, titleInput);
