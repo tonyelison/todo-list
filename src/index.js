@@ -18,7 +18,7 @@ const app = (() => {
 
   const newTodo = (project = defaultProject) => {
     const todo = todoFactory(project);
-    project?.addTodo(todo);
+    project.addTodo(todo);
     return todo;
   };
 
