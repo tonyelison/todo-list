@@ -7,15 +7,11 @@ const PRIORITY = {
   high: 3,
 };
 
-const STATUS = {
-  incomplete: 0,
-  complete: 1,
-};
-
 const idSequence = sequenceFactory();
 
-const todoFactory = (project, title, description, dueDate, priority, status) => {
+const todoFactory = (project, title, description, dueDate, priority, completed) => {
   const id = idSequence.getNext();
+  let isComplete = completed || false;
 
   return {
     get id() {
@@ -28,7 +24,12 @@ const todoFactory = (project, title, description, dueDate, priority, status) => 
     description: description || '',
     dueDate,
     priority: priority || PRIORITY.none,
-    status: status || STATUS.incomplete,
+    get isComplete() {
+      return isComplete;
+    },
+    toggleStatus() {
+      isComplete = !isComplete;
+    },
   };
 };
 

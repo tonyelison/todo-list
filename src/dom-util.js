@@ -16,23 +16,45 @@ const activateNavItem = (elementId) => {
   li.classList.add('active');
 };
 
+const toggleTodoStatus = (todo) => {
+  todo.toggleStatus();
+
+  const checkBox = document.querySelector(`#todo-${todo.id} .check-box`);
+  if (todo.isComplete) {
+    checkBox.classList.add('complete');
+  } else {
+    checkBox.classList.remove('complete');
+  }
+};
+
 const renderTodo = (todo, parentNode) => {
   const container = document.createElement('div');
-  const header = document.createElement('div');
+  const todoItem = document.createElement('div'); // TODO: can we merge container and todoItem elements?
   const checkBox = document.createElement('div');
   const titleInput = document.createElement('input');
 
-  container.tabIndex = -1; // make div focusable, but not accessible by tabbing
+  // make divs focusable, but not accessible by tabbing
+  container.tabIndex = -1;
+  checkBox.tabIndex = -1;
+
   container.classList.add('todo-container');
+  checkBox.classList.add('check-box');
+
   container.addEventListener('focus', () => container.classList.add('edit-view'));
+  checkBox.addEventListener('click', () => toggleTodoStatus(todo));
+
   container.addEventListener('focusout', (e) => {
-    if (e.relatedTarget !== container && !e.target.contains(e.relatedTarget)) {
+    const { relatedTarget, target } = e;
+    const didClickOutside = relatedTarget !== container && !target.contains(relatedTarget);
+    const didToggleCheckBox = relatedTarget === checkBox || checkBox.contains(relatedTarget);
+
+    if (didClickOutside && !didToggleCheckBox) {
       container.classList.remove('edit-view');
     }
   });
 
-  header.classList.add('todo-item');
-  checkBox.classList.add('check-box');
+  todoItem.classList.add('todo-item');
+  todoItem.id = `todo-${todo.id}`;
 
   titleInput.classList.add('title');
   titleInput.placeholder = 'New Task';
@@ -44,8 +66,8 @@ const renderTodo = (todo, parentNode) => {
     todo.title = titleInput.value;
   });
 
-  header.append(checkBox, titleInput);
-  container.appendChild(header);
+  todoItem.append(checkBox, titleInput);
+  container.appendChild(todoItem);
   parentNode.appendChild(container);
 
   if (!todo.title) {

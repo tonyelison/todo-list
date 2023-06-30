@@ -233,11 +233,11 @@ input.title {
 
 .todo-container:not(.edit-view):hover {
   background-color: var(--select-grey);
-  cursor: pointer;
 }
 
+.todo-container:not(.edit-view) .todo-item input,
 .todo-container:not(.edit-view) .todo-item input:hover {
-  cursor: pointer;
+  cursor: default;
 }
 
 .edit-view {
@@ -254,8 +254,15 @@ input.title {
 }
 
 .check-box {
-  content: url('./assets/checkbox-empty.svg');
-  height: 18px;
+  height: 16px;
+  width: 16px;
+  border: 2px solid var(--primary-color);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.check-box.complete {
+  background-color: var(--primary-color);
 }
 
 .todo-item .title {
