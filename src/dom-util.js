@@ -35,7 +35,7 @@ const renderTodo = (todo, parentNode) => {
   checkBox.classList.add('check-box');
 
   titleInput.classList.add('title');
-  titleInput.placeholder = 'New Todo';
+  titleInput.placeholder = 'New Task';
   titleInput.value = todo.title;
 
   titleInput.addEventListener('focusin', () => container.classList.add('edit-view'));
