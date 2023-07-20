@@ -176,6 +176,10 @@ input.title {
   outline: none;
 }
 
+.todo-item .ellipsis-menu {
+  padding: 0;
+}
+
 .ellipsis-menu {
   padding: 5px;
   height: 30px;  
@@ -186,10 +190,19 @@ input.title {
   background-color: var(--select-grey);
 }
 
-.dropdown {
+.header-container .dropdown {
   position: absolute;
   top: 100%;
   left: calc(100% - 40px);
+}
+
+.todo-item .dropdown {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.dropdown {
   list-style: none;
   font-weight: 500;
   box-shadow: var(--modal-box-shadow);
@@ -267,6 +280,10 @@ input.title {
 
 .todo-item .title {
   font-size: 18px;
+}
+
+.todo-item .ellipsis-menu {
+  margin-left: auto;
 }
 
 .list-footer {

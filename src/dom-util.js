@@ -27,8 +27,41 @@ const toggleTodoStatus = (todo) => {
   }
 };
 
-const initTodoEditView = (container) => {
-  container.classList.add('edit-view');
+const renderEllipsisMenu = (ellipsisOptions) => {
+  const ellipsisMenu = document.createElement('img');
+
+  ellipsisMenu.classList.add('ellipsis-menu');
+  ellipsisMenu.src = ellipsisSvg;
+
+  const openDropdown = (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu);
+  ellipsisMenu.addEventListener('click', openDropdown);
+
+  return ellipsisMenu;
+};
+
+const getTodoParentNode = () => document.querySelector('.todo-list') || document.querySelector('.project-details');
+
+const removeTodo = (todo) => {
+  const todoContainer = document.querySelector(`#todo-${todo.id}`);
+  todoContainer.remove();
+
+  const { project } = todo;
+  project.removeTodo(todo.id);
+};
+
+const initTodoEditView = (todoContainer, todo) => {
+  if (!todoContainer.classList.contains('edit-view')) {
+    todoContainer.classList.add('edit-view');
+
+    const ellipsisOptions = [
+      { text: 'Delete', icon: 'delete', action: () => removeTodo(todo) },
+    ];
+
+    const todoItem = todoContainer.querySelector('.todo-item');
+    const ellipsisMenu = renderEllipsisMenu(ellipsisOptions);
+
+    todoItem.appendChild(ellipsisMenu);
+  }
 };
 
 const renderTodo = (todo, parentNode) => {
@@ -44,7 +77,7 @@ const renderTodo = (todo, parentNode) => {
   container.classList.add('todo-container');
   checkBox.classList.add('check-box');
 
-  container.addEventListener('focus', () => initTodoEditView(container));
+  container.addEventListener('focus', () => initTodoEditView(container, todo));
   checkBox.addEventListener('click', () => toggleTodoStatus(todo));
 
   container.addEventListener('focusout', (e) => {
@@ -54,6 +87,7 @@ const renderTodo = (todo, parentNode) => {
 
     if (didClickOutside && !didToggleCheckBox) {
       container.classList.remove('edit-view');
+      container.querySelector('.ellipsis-menu')?.remove();
     }
   });
 
@@ -64,7 +98,7 @@ const renderTodo = (todo, parentNode) => {
   titleInput.placeholder = 'New Task';
   titleInput.value = todo.title;
 
-  titleInput.addEventListener('focusin', () => initTodoEditView(container));
+  titleInput.addEventListener('focusin', () => initTodoEditView(container, todo));
   titleInput.addEventListener('keypress', blurKeyEventHandler);
   titleInput.addEventListener('focusout', () => {
     todo.title = titleInput.value;
@@ -132,23 +166,6 @@ const updateProjectTitle = (titleInput, project) => {
   project.title = titleInput.value;
 };
 
-const renderEllipsisMenu = (titleInput, project) => {
-  const ellipsisMenu = document.createElement('img');
-
-  ellipsisMenu.classList.add('ellipsis-menu');
-  ellipsisMenu.src = ellipsisSvg;
-
-  const ellipsisOptions = [
-    { text: 'Rename', icon: 'edit', action: () => titleInput.focus() },
-    { text: 'Delete', icon: 'delete', action: () => removeProject(project) },
-  ];
-
-  const openDropdown = (event) => dropdown.open(event, ellipsisOptions, ellipsisMenu);
-  ellipsisMenu.addEventListener('click', openDropdown);
-
-  return ellipsisMenu;
-};
-
 const renderProjectView = (project) => {
   const projectDetails = document.createElement('div');
   const headerContainer = document.createElement('div');
@@ -164,7 +181,12 @@ const renderProjectView = (project) => {
   titleInput.addEventListener('keypress', blurKeyEventHandler);
   titleInput.addEventListener('focusout', () => updateProjectTitle(titleInput, project));
 
-  const ellipsisMenu = renderEllipsisMenu(titleInput, project);
+  const ellipsisOptions = [
+    { text: 'Rename', icon: 'edit', action: () => titleInput.focus() },
+    { text: 'Delete', icon: 'delete', action: () => removeProject(project) },
+  ];
+
+  const ellipsisMenu = renderEllipsisMenu(ellipsisOptions);
   const todoListContainer = renderTodoList(project.todoList());
 
   headerContainer.append(titleInput, ellipsisMenu);
@@ -215,8 +237,7 @@ const addProject = (project) => {
 };
 
 const addTodo = (todo) => {
-  const parentNode = document.querySelector('.todo-list') || document.querySelector('.project-details');
-  renderTodo(todo, parentNode);
+  renderTodo(todo, getTodoParentNode());
 };
 
 function setAddProjectBtnAction() {
