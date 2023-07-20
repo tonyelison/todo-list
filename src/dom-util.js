@@ -27,6 +27,10 @@ const toggleTodoStatus = (todo) => {
   }
 };
 
+const initTodoEditView = (container) => {
+  container.classList.add('edit-view');
+};
+
 const renderTodo = (todo, parentNode) => {
   const container = document.createElement('div');
   const todoItem = document.createElement('div'); // TODO: can we merge container and todoItem elements?
@@ -40,7 +44,7 @@ const renderTodo = (todo, parentNode) => {
   container.classList.add('todo-container');
   checkBox.classList.add('check-box');
 
-  container.addEventListener('focus', () => container.classList.add('edit-view'));
+  container.addEventListener('focus', () => initTodoEditView(container));
   checkBox.addEventListener('click', () => toggleTodoStatus(todo));
 
   container.addEventListener('focusout', (e) => {
@@ -60,7 +64,7 @@ const renderTodo = (todo, parentNode) => {
   titleInput.placeholder = 'New Task';
   titleInput.value = todo.title;
 
-  titleInput.addEventListener('focusin', () => container.classList.add('edit-view'));
+  titleInput.addEventListener('focusin', () => initTodoEditView(container));
   titleInput.addEventListener('keypress', blurKeyEventHandler);
   titleInput.addEventListener('focusout', () => {
     todo.title = titleInput.value;
